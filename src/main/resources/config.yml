@@ -1,0 +1,60 @@
+#
+# ${project.name} - v${project.version}
+# Developed by https://codeitforyou.com/
+#
+
+settings:
+  general:
+    # Enabling this will skip votes where the user
+    # currently isn't online.
+    onlineonly: true
+
+  # This is where the data will be stored.
+  storage:
+    # Types: SQLITE, MYSQL and MONGODB.
+    type: 'SQLITE'
+    host: 'localhost'
+    username: 'root'
+    password: 'verylongpass123'
+    port: 3306
+    database: 'votes_db'
+    prefix: ''
+
+normal-votes:
+  enabled: true
+  rewards:
+    - '[BROADCAST] &e%player% &7voted and received &f5x Iron&7.'
+    - '[CONSOLE] give %player% iron_ingot 5'
+
+lucky-votes:
+  enabled: true
+  rewards:
+    '10':
+      actions:
+        - '[BROADCAST] &e%player% &7got lucky &6(%chance%%) and won a &bDiamond&7.'
+        - '[CONSOLE] give %player% diamond 1'
+    '50':
+      actions:
+        - '[BROADCAST] &e%player% &7got very lucky &6(%chance%%) and won an &2Emerald&7.'
+        - '[CONSOLE] give %player% emerald 1'
+
+perm-votes:
+  enabled: true
+  rewards:
+    # Uses the permission cifyvotes.perm.donor
+    donor:
+      actions:
+        - '[BROADCAST] &e%player% &7received &b3x Diamonds &7for being a donator.'
+        - '[CONSOLE] give %player% diamond 3'
+
+cumulative-votes:
+  enabled: true
+  rewards:
+    '10':
+      actions:
+        - '[BROADCAST] &e%player% &7voted &6%amount% time(s) &7and won 3x &bDiamond&7.'
+        - '[CONSOLE] give %player% diamond 3'
+    '25':
+      actions:
+        - '[BROADCAST] &e%player% &7voted &6%amount% time(s) &7and won 6x &bDiamond&7.'
+        - '[CONSOLE] give %player% diamond 6'
