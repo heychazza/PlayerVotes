@@ -7,7 +7,9 @@ import com.codeitforyou.votes.manager.PluginCmdManager;
 import com.codeitforyou.votes.manager.RewardManager;
 import com.codeitforyou.votes.registerable.EventRegisterable;
 import com.codeitforyou.votes.registerable.RequirementRegisterable;
+import com.codeitforyou.votes.storage.MySQLMapper;
 import com.codeitforyou.votes.util.Lang;
+import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.plugin.java.JavaPlugin;
 
 public class Votes extends JavaPlugin {
@@ -60,10 +62,23 @@ public class Votes extends JavaPlugin {
 //        COMMAND_MANAGER
 
         loadHooks();
+        loadUsers();
     }
 
     public void loadHooks() {
         new PAPIHook();
+    }
+
+    public MySQLMapper mySQLMapper;
+    public void loadUsers() {
+        ConfigurationSection storageSection = getConfig().getConfigurationSection("settings.storage");
+        mySQLMapper = new MySQLMapper(storageSection.getString("prefix"),
+                storageSection.getString("host"),
+                storageSection.getInt("port"),
+                storageSection.getString("database"),
+                storageSection.getString("username"),
+                storageSection.getString("password")
+        );
     }
 
     @Override
