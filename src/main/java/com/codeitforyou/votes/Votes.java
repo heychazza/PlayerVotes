@@ -2,9 +2,11 @@ package com.codeitforyou.votes;
 
 import com.codeitforyou.lib.api.actions.ActionManager;
 import com.codeitforyou.lib.api.command.CommandManager;
+import com.codeitforyou.votes.hook.PAPIHook;
 import com.codeitforyou.votes.manager.PluginCmdManager;
 import com.codeitforyou.votes.manager.RewardManager;
 import com.codeitforyou.votes.registerable.EventRegisterable;
+import com.codeitforyou.votes.registerable.RequirementRegisterable;
 import com.codeitforyou.votes.util.Lang;
 import org.bukkit.plugin.java.JavaPlugin;
 
@@ -42,6 +44,7 @@ public class Votes extends JavaPlugin {
 
         // Load Registerables
         EventRegisterable.register();
+        RequirementRegisterable.register();
     }
 
     public void register() {
@@ -56,7 +59,11 @@ public class Votes extends JavaPlugin {
 
 //        COMMAND_MANAGER
 
-//        loadHooks();
+        loadHooks();
+    }
+
+    public void loadHooks() {
+        new PAPIHook();
     }
 
     @Override

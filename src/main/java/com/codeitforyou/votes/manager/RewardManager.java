@@ -38,6 +38,7 @@ public class RewardManager {
             List<String> actions = reward.getActions();
             Collections.replaceAll(actions, "%service%", vote.getServiceName());
             Collections.replaceAll(actions, "%timestamp%", vote.getTimeStamp());
+            Collections.replaceAll(actions, "%votes%", "0"); // TODO: make this not hard coded.
             reward.runActions(player);
         });
     }

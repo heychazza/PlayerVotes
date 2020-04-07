@@ -10,8 +10,7 @@ import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 
 public class VoteListener implements Listener {
-
-    private Votes plugin = Votes.getPlugin();
+    private final Votes plugin = Votes.getPlugin();
 
     @EventHandler(priority = EventPriority.NORMAL)
     public void onVoteEvent(VotifierEvent event) {
@@ -19,7 +18,7 @@ public class VoteListener implements Listener {
         Player player = Bukkit.getPlayer(vote.getUsername());
 
         if (player != null) {
-            plugin.getLogger().info("[DEBUG] Handling vote to service " + vote.getServiceName() + " by " + player.getName() + "..");
+            plugin.getLogger().info("[DEBUG] Handling vote from service " + vote.getServiceName() + " by " + player.getName() + "..");
             plugin.getRewardManager().executeVote(player, vote);
         }
     }
