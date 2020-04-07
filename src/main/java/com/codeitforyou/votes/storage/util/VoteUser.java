@@ -10,6 +10,12 @@ public class VoteUser {
     @Column(key = "votes")
     private int votes;
 
+    public VoteUser() {}
+    public VoteUser(UUID voter, int votes) {
+        this.voter = voter.toString();
+        this.votes = votes;
+    }
+
     public UUID getVoter() {
         return UUID.fromString(voter);
     }
