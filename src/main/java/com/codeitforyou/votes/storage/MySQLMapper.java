@@ -3,6 +3,7 @@ package com.codeitforyou.votes.storage;
 import com.codeitforyou.votes.Votes;
 import com.codeitforyou.votes.storage.util.ObjectMapper;
 import com.codeitforyou.votes.storage.util.VoteUser;
+import org.bukkit.Bukkit;
 
 import java.sql.*;
 import java.util.List;
@@ -28,7 +29,7 @@ public class MySQLMapper {
             List<VoteUser> voteUser = objectMapper.map(rs);
 
             voteUser.forEach(user -> {
-                Votes.getPlugin().getLogger().info("Found user " + user.getUsername() + " with " + user.getVotes() + "!");
+                Votes.getPlugin().getLogger().info("Found user " + Bukkit.getPlayer(user.getVoter()).getName() + " with " + user.getVotes() + "!");
             });
         } catch (SQLException e) {
             e.printStackTrace();

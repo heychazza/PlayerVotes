@@ -35,9 +35,7 @@ public class ObjectMapper<T> {
                         String name = col.key();
                         try {
                             Object value = rs.getObject(name);
-
                             field.set(dto, value);
-//                            field.set(dto, field.getType().getConstructor(String.class).newInstance(value));
                         } catch (Exception e) {
                             e.printStackTrace();
                         }

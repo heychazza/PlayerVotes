@@ -1,15 +1,17 @@
 package com.codeitforyou.votes.storage.util;
 
+import java.util.UUID;
+
 public class VoteUser {
 
-    @Column(key = "username")
-    private String username;
+    @Column(key = "uuid")
+    private String voter;
 
     @Column(key = "votes")
     private int votes;
 
-    public String getUsername() {
-        return username;
+    public UUID getVoter() {
+        return UUID.fromString(voter);
     }
 
     public int getVotes() {
