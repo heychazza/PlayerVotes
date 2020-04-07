@@ -20,6 +20,29 @@ settings:
     database: 'votes_db'
     prefix: ''
 
+rewards:
+  '50votes':
+    requirements:
+      test:
+        type: 'javascript'
+        requirement: '%votes% == 50'
+    actions:
+      - '[BROADCAST] &eYou voted 50 times!'
+  '25votes':
+    requirements:
+      test:
+        type: 'javascript'
+        requirement: '%votes% == 25'
+    actions:
+      - '[BROADCAST] &eYou voted 25 times!'
+  'donor':
+    requirements:
+      test:
+        type: 'has permission'
+        permission: 'cifyvotes.donor'
+    actions:
+      - '[BROADCAST] &eYou voted as a donor!'
+
 normal-votes:
   enabled: true
   rewards:

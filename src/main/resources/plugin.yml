@@ -4,4 +4,4 @@ main: ${spigotPackage}
 author: "CodeItForYou"
 website: https://codeitforyou.com/
 description: ${description}
-depends: [Votifier]
+depend: [Votifier]
