@@ -4,6 +4,7 @@ import com.codeitforyou.votes.Votes;
 
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Modifier;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -25,6 +26,10 @@ public class ObjectMapper<T> {
                 Field[] fields = dto.getClass().getDeclaredFields();
 
                 for (Field field : fields) {
+                    if(Modifier.isPrivate(field.getModifiers())) {
+                        field.setAccessible(true);
+                    }
+
                     Column col = field.getAnnotation(Column.class);
                     if (col != null) {
                         String name = col.key();

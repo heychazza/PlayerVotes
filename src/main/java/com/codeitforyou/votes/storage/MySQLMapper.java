@@ -28,7 +28,7 @@ public class MySQLMapper {
             List<VoteUser> voteUser = objectMapper.map(rs);
 
             voteUser.forEach(user -> {
-                Votes.getPlugin().getLogger().info("Found user " + user.username + " with " + user.votes + "!");
+                Votes.getPlugin().getLogger().info("Found user " + user.getUsername() + " with " + user.getVotes() + "!");
             });
         } catch (SQLException e) {
             e.printStackTrace();
