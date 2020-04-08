@@ -27,4 +27,7 @@ public class VoteUser {
     public void addVotes(int amount) {
         votes+=amount;
     }
+    public void addVote() {
+        addVotes(1);
+    }
 }

@@ -2,24 +2,13 @@ package com.codeitforyou.votes.command;
 
 import com.codeitforyou.lib.api.command.Command;
 import com.codeitforyou.votes.Votes;
-import com.vexsoftware.votifier.model.Vote;
-import com.vexsoftware.votifier.model.VotifierEvent;
-import org.bukkit.Bukkit;
+import com.codeitforyou.votes.util.Lang;
 import org.bukkit.entity.Player;
-import sun.awt.CausedFocusEvent;
-
-import java.util.Date;
 
 public class MainCommand {
-
-    @Command(title = "Vote")
-    public static void execute(Player player, Votes plugin, String[] args) {
-        player.sendMessage("Executing fake vote!");
-
-//        plugin.mySQLMapper.loadUser();
-
-        plugin.getUserManager().getUser(player.getUniqueId()).addVotes(1);
-        Vote vote = new Vote(plugin.getName(), player.getName(), player.getAddress().getHostString(), new Date().toString());
-        Bukkit.getPluginManager().callEvent(new VotifierEvent(vote));
+    @Command()
+    public static void execute(final Player sender, final Votes plugin, final String[] args) {
+        Lang.MAIN_COMMAND.send(sender, Lang.PREFIX.asString(), plugin.getUserManager().getUser(sender.getUniqueId()).getVotes());
+//        Lang.MAIN_COMMAND.send(sender, Lang.PREFIX.asString(), plugin.getDescription().getName(), plugin.getDescription().getVersion(), plugin.getDescription().getAuthors().get(0));
     }
 }

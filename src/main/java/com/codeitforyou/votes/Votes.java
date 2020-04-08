@@ -1,9 +1,8 @@
 package com.codeitforyou.votes;
 
 import com.codeitforyou.lib.api.actions.ActionManager;
-import com.codeitforyou.lib.api.command.CommandManager;
+import com.codeitforyou.votes.command.PluginCommandManager;
 import com.codeitforyou.votes.hook.PAPIHook;
-import com.codeitforyou.votes.manager.PluginCmdManager;
 import com.codeitforyou.votes.manager.RewardManager;
 import com.codeitforyou.votes.manager.UserManager;
 import com.codeitforyou.votes.registerable.EventRegisterable;
@@ -16,7 +15,7 @@ import org.bukkit.plugin.java.JavaPlugin;
 
 public class Votes extends JavaPlugin {
     private final ActionManager ACTION_MANAGER = new ActionManager(this);
-    private final PluginCmdManager COMMAND_MANAGER = new PluginCmdManager(this);
+    private final PluginCommandManager COMMAND_MANAGER = new PluginCommandManager();
     private final RewardManager REWARD_MANAGER = new RewardManager(this);
     private final UserManager USER_MANAGER = new UserManager();
     private static Votes plugin;
@@ -29,7 +28,7 @@ public class Votes extends JavaPlugin {
         return REWARD_MANAGER;
     }
 
-    public PluginCmdManager getCommandManager() {
+    public PluginCommandManager getCommandManager() {
         return COMMAND_MANAGER;
     }
 
@@ -59,6 +58,9 @@ public class Votes extends JavaPlugin {
     public void register() {
         Lang.init(this);
         reloadConfig();
+
+        // Load Commands
+        COMMAND_MANAGER.register();
 
         // Load Default Actions
         ACTION_MANAGER.addDefaults();

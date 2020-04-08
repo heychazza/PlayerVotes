@@ -14,7 +14,14 @@ import java.util.Optional;
 
 public enum Lang {
     PREFIX("&b[&lVotes&b]"),
-    MAIN_COMMAND("{0} &7You're running &f{1} &7version &bv{2} &7by &f{3}&7."),
+    MAIN_COMMAND("{0} &7You can vote for us with the following:",
+            "&7",
+            " &8- &fhttps://vote.link/1",
+            " &8- &fhttps://vote.link/2",
+            " &8- &fhttps://vote.link/3",
+            "&7",
+            "{0} &7You have a total of &b{1} &7vote(s)."),
+    INFO_COMMAND("{0} &7You're running &f{1} &7version &bv{2} &7by &f{3}&7."),
     CHANNEL_COMMAND_USAGE("{0} &7Usage: &b/channel &7<&f{1}&7>."),
     ERROR_NO_PERMISSION_COMMAND("{0} &7You don't have permission to that command."),
     ERROR_PLAYER_ONLY("{0} &7That's a player only command."),
