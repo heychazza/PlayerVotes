@@ -18,9 +18,43 @@ public class ObjectMapper<T> {
         this.clazz = clazz;
     }
 
-    public List<T> map(ResultSet rs) {
+    public T map(ResultSet rs) {
+        try {
+            while (rs.next()) {
+                T dto = (T) clazz.getConstructor().newInstance();
+                Field[] fields = dto.getClass().getDeclaredFields();
+
+                for (Field field : fields) {
+                    if(Modifier.isPrivate(field.getModifiers())) {
+                        field.setAccessible(true);
+                    }
+
+                    Column col = field.getAnnotation(Column.class);
+                    if (col != null) {
+                        String name = col.key();
+                        try {
+                            Object value = rs.getObject(name);
+                            field.set(dto, value);
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
+                    }
+                }
+
+                return dto;
+            }
+        } catch (NoSuchMethodException | InstantiationException | IllegalAccessException | SQLException | InvocationTargetException ex) {
+            plugin.getLogger().warning("An error occurred when mapping VoteUser..");
+            plugin.getLogger().warning("Reason: " + ex.getLocalizedMessage());
+        }
+
+        return null;
+    }
+
+    public List<T> mapAll(ResultSet rs) {
         List<T> objects = new ArrayList<>();
         try {
+
             while (rs.next()) {
                 T dto = (T) clazz.getConstructor().newInstance();
                 Field[] fields = dto.getClass().getDeclaredFields();

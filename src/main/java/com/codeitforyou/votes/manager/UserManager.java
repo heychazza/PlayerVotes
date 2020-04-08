@@ -23,6 +23,14 @@ public class UserManager {
         return voteUserMap.get(target);
     }
 
+    public void addUser(VoteUser voteUser) {
+        getUsers().put(voteUser.getVoter(), voteUser);
+    }
+
+    public void removeUser(UUID target) {
+        getUsers().remove(target);
+    }
+
     public Map<UUID, VoteUser> getUsers() {
         return voteUserMap;
     }

@@ -23,4 +23,8 @@ public class VoteUser {
     public int getVotes() {
         return votes;
     }
+
+    public void addVotes(int amount) {
+        votes+=amount;
+    }
 }

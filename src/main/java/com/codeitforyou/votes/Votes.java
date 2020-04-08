@@ -5,9 +5,11 @@ import com.codeitforyou.lib.api.command.CommandManager;
 import com.codeitforyou.votes.hook.PAPIHook;
 import com.codeitforyou.votes.manager.PluginCmdManager;
 import com.codeitforyou.votes.manager.RewardManager;
+import com.codeitforyou.votes.manager.UserManager;
 import com.codeitforyou.votes.registerable.EventRegisterable;
 import com.codeitforyou.votes.registerable.RequirementRegisterable;
 import com.codeitforyou.votes.storage.MySQLMapper;
+import com.codeitforyou.votes.storage.util.StorageType;
 import com.codeitforyou.votes.util.Lang;
 import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -16,6 +18,7 @@ public class Votes extends JavaPlugin {
     private final ActionManager ACTION_MANAGER = new ActionManager(this);
     private final PluginCmdManager COMMAND_MANAGER = new PluginCmdManager(this);
     private final RewardManager REWARD_MANAGER = new RewardManager(this);
+    private final UserManager USER_MANAGER = new UserManager();
     private static Votes plugin;
 
     public ActionManager getActionManager() {
@@ -28,6 +31,10 @@ public class Votes extends JavaPlugin {
 
     public PluginCmdManager getCommandManager() {
         return COMMAND_MANAGER;
+    }
+
+    public UserManager getUserManager() {
+        return USER_MANAGER;
     }
 
     public static Votes getPlugin() {
@@ -69,16 +76,26 @@ public class Votes extends JavaPlugin {
         new PAPIHook();
     }
 
-    public MySQLMapper mySQLMapper;
+    private StorageType storageType;
+
+    public StorageType getStorageType() {
+        return storageType;
+    }
+
     public void loadUsers() {
         ConfigurationSection storageSection = getConfig().getConfigurationSection("settings.storage");
-        mySQLMapper = new MySQLMapper(storageSection.getString("prefix"),
-                storageSection.getString("host"),
-                storageSection.getInt("port"),
-                storageSection.getString("database"),
-                storageSection.getString("username"),
-                storageSection.getString("password")
-        );
+
+        switch (getConfig().getString("settings.storage.type").toUpperCase()) {
+            case "MYSQL":
+                storageType = new MySQLMapper(storageSection.getString("prefix"),
+                        storageSection.getString("host"),
+                        storageSection.getInt("port"),
+                        storageSection.getString("database"),
+                        storageSection.getString("username"),
+                        storageSection.getString("password")
+                );
+
+        }
     }
 
     @Override

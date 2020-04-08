@@ -16,7 +16,9 @@ public class MainCommand {
     public static void execute(Player player, Votes plugin, String[] args) {
         player.sendMessage("Executing fake vote!");
 
-        plugin.mySQLMapper.loadUser();
+//        plugin.mySQLMapper.loadUser();
+
+        plugin.getUserManager().getUser(player.getUniqueId()).addVotes(1);
         Vote vote = new Vote(plugin.getName(), player.getName(), player.getAddress().getHostString(), new Date().toString());
         Bukkit.getPluginManager().callEvent(new VotifierEvent(vote));
     }
