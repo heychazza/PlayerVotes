@@ -21,7 +21,7 @@ public class PluginCommandManager {
         commandManager.setMainCommand(MainCommand.class);
 
 
-        for (String alias : Arrays.asList("chat", "chats")) {
+        for (String alias : Arrays.asList("vote", "voting", "votingplugin")) {
             commandManager.addAlias(alias);
         }
 

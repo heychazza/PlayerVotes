@@ -21,10 +21,10 @@ public class RewardManager {
 
     public RewardManager(Votes plugin) {
         this.plugin = plugin;
-        this.rewards = new ArrayList<>();
     }
 
     public void loadRewards() {
+        this.rewards = new ArrayList<>();
         FileConfiguration config = plugin.getConfig();
         ConfigurationSection rewardsSection = config.getConfigurationSection("rewards");
 
