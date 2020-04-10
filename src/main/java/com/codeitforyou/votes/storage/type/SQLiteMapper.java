@@ -1,14 +1,13 @@
-package com.codeitforyou.votes.storage;
+package com.codeitforyou.votes.storage.type;
 
 import com.codeitforyou.votes.Votes;
-import com.codeitforyou.votes.storage.util.ObjectMapper;
-import com.codeitforyou.votes.storage.util.StorageType;
-import com.codeitforyou.votes.storage.util.VoteUser;
+import com.codeitforyou.votes.storage.ObjectMapper;
+import com.codeitforyou.votes.storage.StorageType;
+import com.codeitforyou.votes.storage.VoteUser;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 
 import java.io.File;
-import java.io.IOException;
 import java.sql.*;
 import java.util.UUID;
 

@@ -3,7 +3,7 @@ package com.codeitforyou.votes.manager;
 import com.codeitforyou.votes.Votes;
 import com.codeitforyou.votes.api.Reward;
 import com.codeitforyou.votes.api.RewardMapper;
-import com.codeitforyou.votes.storage.util.VoteUser;
+import com.codeitforyou.votes.storage.VoteUser;
 import com.vexsoftware.votifier.model.Vote;
 import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.configuration.file.FileConfiguration;

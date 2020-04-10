@@ -7,11 +7,10 @@ import com.codeitforyou.votes.manager.RewardManager;
 import com.codeitforyou.votes.manager.UserManager;
 import com.codeitforyou.votes.registerable.EventRegisterable;
 import com.codeitforyou.votes.registerable.RequirementRegisterable;
-import com.codeitforyou.votes.storage.MySQLMapper;
-import com.codeitforyou.votes.storage.SQLiteMapper;
-import com.codeitforyou.votes.storage.util.StorageType;
+import com.codeitforyou.votes.storage.type.MySQLMapper;
+import com.codeitforyou.votes.storage.type.SQLiteMapper;
+import com.codeitforyou.votes.storage.StorageType;
 import com.codeitforyou.votes.util.Lang;
-import org.bukkit.Bukkit;
 import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.plugin.java.JavaPlugin;
 

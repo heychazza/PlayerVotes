@@ -1,4 +1,4 @@
-package com.codeitforyou.votes.storage.util;
+package com.codeitforyou.votes.storage;
 
 import java.util.UUID;
 
