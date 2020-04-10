@@ -8,25 +8,27 @@ import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 
 import java.io.File;
+import java.io.IOException;
 import java.sql.*;
 import java.util.UUID;
 
-public class MySQLMapper implements StorageType {
+public class SQLiteMapper implements StorageType {
 
     private Votes plugin = Votes.getPlugin();
     private Connection connectionSource;
 
     private String userTable;
 
-    public MySQLMapper(String prefix, String host, int port, String database, String username, String password) {
+    public SQLiteMapper(String prefix, String host, int port, String database, String username, String password) {
         this.userTable = prefix + "users";
         try {
-            connectionSource = DriverManager.getConnection("jdbc:mysql://" + host + ":" + port + "/" + database, username, password);
+            File file = new File(plugin.getDataFolder(), "storage.db");
+            connectionSource = DriverManager.getConnection("jdbc:sqlite://" + file.getAbsolutePath());
             Statement statement = connectionSource.createStatement();
-            statement.execute("CREATE TABLE IF NOT EXISTS " + database + ".`" + userTable + "` ( `id` INT NOT NULL AUTO_INCREMENT , `uuid` VARCHAR(255) NULL DEFAULT NULL , `votes` INT NULL DEFAULT '0' , PRIMARY KEY (`id`), UNIQUE (`uuid`));");
+            statement.execute("CREATE TABLE IF NOT EXISTS " + userTable + " ( `id` INTEGER NOT NULL , `uuid` VARCHAR(255) NULL DEFAULT NULL , `votes` INT NULL DEFAULT '0' , PRIMARY KEY (`id`), UNIQUE (`uuid`));");
         } catch (SQLException e) {
             plugin.getLogger().warning("==================================================");
-            plugin.getLogger().warning("Failed to connect to MySQL database!");
+            plugin.getLogger().warning("Failed to connect to SQLite database!");
             plugin.getLogger().warning("If you believe this is an error, send the below stacktrace to the developer..");
             e.printStackTrace();
             plugin.getLogger().warning("==================================================");
@@ -43,14 +45,13 @@ public class MySQLMapper implements StorageType {
             ObjectMapper<VoteUser> objectMapper = new ObjectMapper<>(VoteUser.class);
             VoteUser voteUser = objectMapper.map(rs);
 
-            if (voteUser == null) {
+            if(voteUser == null) {
                 voteUser = new VoteUser(target, 0);
             }
             plugin.getUserManager().addUser(voteUser);
 
             Player player = Bukkit.getPlayer(voteUser.getVoter());
-            if (player != null)
-                plugin.getLogger().info("Pulled user " + player.getName() + " with " + voteUser.getVotes() + " vote(s)!");
+            if (player != null) plugin.getLogger().info("Pulled user " + player.getName() + " with " + voteUser.getVotes() + " vote(s)!");
         } catch (SQLException e) {
             plugin.getLogger().warning("==================================================");
             plugin.getLogger().warning("Failed to pull user data of " + target.toString() + "!");
@@ -65,11 +66,9 @@ public class MySQLMapper implements StorageType {
         VoteUser voteUser = plugin.getUserManager().getUser(target);
 
         try {
-            //
-            PreparedStatement stmt = connectionSource.prepareStatement("INSERT INTO " + userTable + " (uuid, votes) VALUES (?, ?) ON DUPLICATE KEY UPDATE votes = ?");
+            PreparedStatement stmt = connectionSource.prepareStatement("INSERT OR REPLACE INTO " + userTable + " (uuid, votes) VALUES (?, ?)");
             stmt.setString(1, voteUser.getVoter().toString());
             stmt.setInt(2, voteUser.getVotes());
-            stmt.setInt(3, voteUser.getVotes());
 
             stmt.executeUpdate();
 

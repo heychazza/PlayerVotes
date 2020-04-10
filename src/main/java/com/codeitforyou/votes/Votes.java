@@ -8,6 +8,7 @@ import com.codeitforyou.votes.manager.UserManager;
 import com.codeitforyou.votes.registerable.EventRegisterable;
 import com.codeitforyou.votes.registerable.RequirementRegisterable;
 import com.codeitforyou.votes.storage.MySQLMapper;
+import com.codeitforyou.votes.storage.SQLiteMapper;
 import com.codeitforyou.votes.storage.util.StorageType;
 import com.codeitforyou.votes.util.Lang;
 import org.bukkit.Bukkit;
@@ -89,21 +90,30 @@ public class Votes extends JavaPlugin {
         ConfigurationSection storageSection = getConfig().getConfigurationSection("settings.storage");
         String storageTypeStr = storageSection.getString("type").toUpperCase();
 
-        if(storageTypeStr.equalsIgnoreCase("MYSQL") || storageTypeStr.equalsIgnoreCase("SQLITE")) {
-            storageType = new MySQLMapper(storageSection.getString("prefix"),
-                    storageSection.getString("host"),
-                    storageSection.getInt("port"),
-                    storageSection.getString("database"),
-                    storageSection.getString("username"),
-                    storageSection.getString("password"),
-                    storageTypeStr.equalsIgnoreCase("SQLITE")
-            );
-        }
+        switch (storageTypeStr) {
+            case "MYSQL":
+                storageType = new MySQLMapper(storageSection.getString("prefix"),
+                        storageSection.getString("host"),
+                        storageSection.getInt("port"),
+                        storageSection.getString("database"),
+                        storageSection.getString("username"),
+                        storageSection.getString("password")
+                );
+                break;
+            case "SQLITE":
+                storageType = new SQLiteMapper(storageSection.getString("prefix"),
+                        storageSection.getString("host"),
+                        storageSection.getInt("port"),
+                        storageSection.getString("database"),
+                        storageSection.getString("username"),
+                        storageSection.getString("password")
+                );
+                break;
+            default:
+                getLogger().warning("The storage type " + storageTypeStr + " is invalid! Disabling..");
+                getServer().getPluginManager().disablePlugin(this);
+                break;
 
-        if(storageType == null) {
-            getLogger().warning("The storage type " + storageTypeStr + " is invalid! Disabling..");
-            getServer().getPluginManager().disablePlugin(this);
-            return;
         }
 
         getLogger().warning("Using " + storageTypeStr.toLowerCase() + " for user storage!");
