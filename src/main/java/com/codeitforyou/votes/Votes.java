@@ -10,6 +10,7 @@ import com.codeitforyou.votes.registerable.RequirementRegisterable;
 import com.codeitforyou.votes.storage.MySQLMapper;
 import com.codeitforyou.votes.storage.util.StorageType;
 import com.codeitforyou.votes.util.Lang;
+import org.bukkit.Bukkit;
 import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.plugin.java.JavaPlugin;
 
@@ -71,7 +72,7 @@ public class Votes extends JavaPlugin {
 //        COMMAND_MANAGER
 
         loadHooks();
-        loadUsers();
+        loadStorage();
     }
 
     public void loadHooks() {
@@ -84,20 +85,29 @@ public class Votes extends JavaPlugin {
         return storageType;
     }
 
-    public void loadUsers() {
+    public void loadStorage() {
         ConfigurationSection storageSection = getConfig().getConfigurationSection("settings.storage");
+        String storageTypeStr = storageSection.getString("type").toUpperCase();
 
-        switch (getConfig().getString("settings.storage.type").toUpperCase()) {
-            case "MYSQL":
-                storageType = new MySQLMapper(storageSection.getString("prefix"),
-                        storageSection.getString("host"),
-                        storageSection.getInt("port"),
-                        storageSection.getString("database"),
-                        storageSection.getString("username"),
-                        storageSection.getString("password")
-                );
-
+        if(storageTypeStr.equalsIgnoreCase("MYSQL") || storageTypeStr.equalsIgnoreCase("SQLITE")) {
+            storageType = new MySQLMapper(storageSection.getString("prefix"),
+                    storageSection.getString("host"),
+                    storageSection.getInt("port"),
+                    storageSection.getString("database"),
+                    storageSection.getString("username"),
+                    storageSection.getString("password"),
+                    storageTypeStr.equalsIgnoreCase("SQLITE")
+            );
         }
+
+        if(storageType == null) {
+            getLogger().warning("The storage type " + storageTypeStr + " is invalid! Disabling..");
+            getServer().getPluginManager().disablePlugin(this);
+            return;
+        }
+
+        getLogger().warning("Using " + storageTypeStr.toLowerCase() + " for user storage!");
+
     }
 
     @Override

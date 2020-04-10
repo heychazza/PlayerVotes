@@ -5,3 +5,4 @@ author: "CodeItForYou"
 website: https://codeitforyou.com/
 description: ${description}
 depend: [Votifier]
+softdepend: [PlaceholderAPI]
