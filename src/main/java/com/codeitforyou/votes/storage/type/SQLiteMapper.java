@@ -18,7 +18,7 @@ public class SQLiteMapper implements StorageType {
 
     private String userTable;
 
-    public SQLiteMapper(String prefix, String host, int port, String database, String username, String password) {
+    public SQLiteMapper(String prefix) {
         this.userTable = prefix + "users";
         try {
             File file = new File(plugin.getDataFolder(), "storage.db");

@@ -100,13 +100,7 @@ public class Votes extends JavaPlugin {
                 );
                 break;
             case "SQLITE":
-                storageType = new SQLiteMapper(storageSection.getString("prefix"),
-                        storageSection.getString("host"),
-                        storageSection.getInt("port"),
-                        storageSection.getString("database"),
-                        storageSection.getString("username"),
-                        storageSection.getString("password")
-                );
+                storageType = new SQLiteMapper(storageSection.getString("prefix"));
                 break;
             default:
                 getLogger().warning("The storage type " + storageTypeStr + " is invalid! Disabling..");

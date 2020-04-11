@@ -14,70 +14,38 @@ settings:
     # Types: SQLITE, MYSQL and MONGODB.
     type: 'SQLITE'
     host: 'localhost'
-    username: 'root'
-    password: 'verylongpass123'
+    username: '${project.name}'
+    password: ''
     port: 3306
-    database: 'votes_db'
+    database: '${project.name}_db'
     prefix: ''
 
 rewards:
   '50votes':
     requirements:
       test:
-        type: 'javascript'
-        requirement: '%votes% == 50'
+        requirement-type: 'EXPRESSION'
+        expression: '%cifyvotes_votes% == 50'
     actions:
-      - '[BROADCAST] &eYou voted 50 times!'
+      - '[MESSAGE] &b[Votes] &7You voted &f50 times &7and received a &bDiamond Sword&7!'
   '25votes':
     requirements:
       test:
-        type: 'javascript'
-        requirement: '%votes% == 25'
+        requirement-type: 'EXPRESSION'
+        expression: '%cifyvotes_votes% == 25'
     actions:
-      - '[BROADCAST] &eYou voted 25 times!'
+      - '[MESSAGE] &b[Votes] &7You voted &f25 times &7and received a &fIron Sword&7!'
   'donor':
     requirements:
       test:
-        type: 'has permission'
-        permission: 'cifyvotes.donor'
+        requirement-type: 'HAS_PERMISSION'
+        input: 'cifyvotes.donor'
     actions:
-      - '[BROADCAST] &eYou voted as a donor!'
-
-normal-votes:
-  enabled: true
-  rewards:
-    - '[BROADCAST] &e%player% &7voted and received &f5x Iron&7.'
-    - '[CONSOLE] give %player% iron_ingot 5'
-
-lucky-votes:
-  enabled: true
-  rewards:
-    '10':
-      actions:
-        - '[BROADCAST] &e%player% &7got lucky &6(%chance%%) and won a &bDiamond&7.'
-        - '[CONSOLE] give %player% diamond 1'
-    '50':
-      actions:
-        - '[BROADCAST] &e%player% &7got very lucky &6(%chance%%) and won an &2Emerald&7.'
-        - '[CONSOLE] give %player% emerald 1'
-
-perm-votes:
-  enabled: true
-  rewards:
-    # Uses the permission cifyvotes.perm.donor
-    donor:
-      actions:
-        - '[BROADCAST] &e%player% &7received &b3x Diamonds &7for being a donator.'
-        - '[CONSOLE] give %player% diamond 3'
-
-cumulative-votes:
-  enabled: true
-  rewards:
-    '10':
-      actions:
-        - '[BROADCAST] &e%player% &7voted &6%amount% time(s) &7and won 3x &bDiamond&7.'
-        - '[CONSOLE] give %player% diamond 3'
-    '25':
-      actions:
-        - '[BROADCAST] &e%player% &7voted &6%amount% time(s) &7and won 6x &bDiamond&7.'
-        - '[CONSOLE] give %player% diamond 6'
+      - '[MESSAGE] &b[Votes] &7You voted as a &ddonator &7and received a &aEmerald Sword&7!'
+  '1in10':
+    requirements:
+      test:
+        requirement-type: 'HAS_CHANCE'
+        chance: 10 # 1/10 chance
+    actions:
+      - '[MESSAGE] &b[Votes] &7You got lucky (&b1/10&7) and received a diamond&7!'
