@@ -20,8 +20,8 @@ public class VoteListener implements Listener {
         if (player != null) {
             plugin.getLogger().info("[DEBUG] Handling vote from service " + vote.getServiceName() + " by " + player.getName() + "..");
             plugin.getUserManager().getUser(player.getUniqueId()).addVote();
-            if(!vote.getServiceName().equalsIgnoreCase(plugin.getDescription().getName())) {
-            }
+//            if(!vote.getServiceName().equalsIgnoreCase(plugin.getDescription().getName())) {
+//            }
             plugin.getRewardManager().executeVote(player, vote);
 
         }

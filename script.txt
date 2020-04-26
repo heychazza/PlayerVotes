@@ -9,6 +9,11 @@ stringEncryptionExclude
 trimExclude   *.* @*.EventHandler *(*) and
               *.* @*.Command *(*);
 
+fixedClasses com.codeitforyou.votes.requirements.* and //Don't change classes in package0
+             com.codeitforyou.votes.requirements.*.* //Don't change classes in subpackages of package0
+             ;
+
+
 exclude       com.codeitforyou.votes. and
               com.codeitforyou.votes.Votes and
 

@@ -1,7 +1,7 @@
 package com.codeitforyou.votes.hook;
 
 import com.codeitforyou.votes.Votes;
-import com.codeitforyou.votes.storage.VoteUser;
+import com.codeitforyou.votes.storage.object.VoteUser;
 import me.clip.placeholderapi.expansion.PlaceholderExpansion;
 import org.bukkit.OfflinePlayer;
 

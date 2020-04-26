@@ -1,4 +1,6 @@
-package com.codeitforyou.votes.storage;
+package com.codeitforyou.votes.storage.object;
+
+import com.codeitforyou.votes.storage.Column;
 
 import java.util.UUID;
 

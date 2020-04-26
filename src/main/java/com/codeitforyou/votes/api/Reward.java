@@ -12,11 +12,13 @@ public class Reward {
     private final String id;
     private final List<ConfigurationSection> requirements;
     private final List<String> actions;
+    private final int priority;
 
-    public Reward(String id, List<ConfigurationSection> requirements, List<String> actions) {
+    public Reward(String id, List<ConfigurationSection> requirements, List<String> actions, int priority) {
         this.id = id;
         this.requirements = requirements;
         this.actions = actions;
+        this.priority = priority;
     }
 
     public String getId() {
@@ -29,6 +31,10 @@ public class Reward {
 
     public List<String> getActions() {
         return actions;
+    }
+
+    public int getPriority() {
+        return priority;
     }
 
     public boolean canReward(Player player) {

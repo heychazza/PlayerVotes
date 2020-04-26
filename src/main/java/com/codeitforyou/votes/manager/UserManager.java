@@ -1,6 +1,6 @@
 package com.codeitforyou.votes.manager;
 
-import com.codeitforyou.votes.storage.VoteUser;
+import com.codeitforyou.votes.storage.object.VoteUser;
 import com.google.common.collect.Maps;
 
 import java.util.Map;

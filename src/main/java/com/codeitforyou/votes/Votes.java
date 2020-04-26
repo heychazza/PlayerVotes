@@ -69,8 +69,6 @@ public class Votes extends JavaPlugin {
         // Load Rewards
         REWARD_MANAGER.loadRewards();
 
-//        COMMAND_MANAGER
-
         loadHooks();
         loadStorage();
     }
@@ -109,7 +107,7 @@ public class Votes extends JavaPlugin {
 
         }
 
-        getLogger().warning("Using " + storageTypeStr.toLowerCase() + " for user storage!");
+        getLogger().info("Using " + storageTypeStr.toLowerCase() + " for user storage!");
 
     }
 

@@ -15,6 +15,6 @@ public class RewardMapper {
         if (requirementSection != null)
             requirementSection.getKeys(false).forEach(requirement -> requirements.add(requirementSection.getConfigurationSection(requirement)));
 
-        return new Reward(id, requirements, reward.getStringList("actions"));
+        return new Reward(id, requirements, reward.getStringList("actions"), reward.getInt("priority", 1));
     }
 }

@@ -3,7 +3,8 @@ package com.codeitforyou.votes.storage.type;
 import com.codeitforyou.votes.Votes;
 import com.codeitforyou.votes.storage.ObjectMapper;
 import com.codeitforyou.votes.storage.StorageType;
-import com.codeitforyou.votes.storage.VoteUser;
+import com.codeitforyou.votes.storage.object.VoteHistory;
+import com.codeitforyou.votes.storage.object.VoteUser;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 
@@ -21,11 +22,12 @@ public class SQLiteMapper implements StorageType {
     public SQLiteMapper(String prefix) {
         this.userTable = prefix + "users";
         try {
+            Class.forName("org.sqlite.JDBC");
             File file = new File(plugin.getDataFolder(), "storage.db");
             connectionSource = DriverManager.getConnection("jdbc:sqlite://" + file.getAbsolutePath());
             Statement statement = connectionSource.createStatement();
             statement.execute("CREATE TABLE IF NOT EXISTS " + userTable + " ( `id` INTEGER NOT NULL , `uuid` VARCHAR(255) NULL DEFAULT NULL , `votes` INT NULL DEFAULT '0' , PRIMARY KEY (`id`), UNIQUE (`uuid`));");
-        } catch (SQLException e) {
+        } catch (SQLException | ClassNotFoundException e) {
             plugin.getLogger().warning("==================================================");
             plugin.getLogger().warning("Failed to connect to SQLite database!");
             plugin.getLogger().warning("If you believe this is an error, send the below stacktrace to the developer..");
@@ -80,5 +82,10 @@ public class SQLiteMapper implements StorageType {
             e.printStackTrace();
             plugin.getLogger().warning("==================================================");
         }
+    }
+
+    @Override
+    public void pushHistory(final UUID target, final VoteHistory history) {
+
     }
 }
