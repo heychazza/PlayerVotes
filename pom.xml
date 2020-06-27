@@ -9,7 +9,7 @@
     <version>1.1.2</version>
     <packaging>jar</packaging>
 
-<!--    test change 2 -->
+<!--    test change 3 -->
     <name>Votes</name>
 
     <properties>
